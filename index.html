@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Morphology-Preserving Virtual Staining</title>
+    <meta
+      name="description"
+      content="PAS and IHC virtual staining blind tests"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="images.css" />
+  </head>
+  <body>
+    <header class="morpheme-header">
+      <a href="#top"><strong>Team Morpheme</strong><span>Morphology &amp; Images</span></a>
+    </header>
+    <nav class="morpheme-nav">
+      <a href="#paper">PAPER DESCRIPTION</a><a href="#pas">PAS BLIND TEST</a><a href="#ihc">IHC BLIND TEST</a>
+    </nav>
+    <main id="top">
+      <section class="hero">
+        <p class="kicker">Interactive paper experience · MICCAI 2026</p>
+        <h1>Morphology-Preserving<br /><em>Virtual Staining</em></h1>
+        <p>From H&amp;E to PAS and IHC using Enhanced Diffusion Models</p>
+        <div>
+          <a class="primary" href="#pas">Start with PAS</a
+          ><a class="secondary" href="#ihc">Go to IHC</a>
+        </div>
+      </section>
+      <section class="paper" id="paper">
+        <div>
+          <p class="kicker">The research</p>
+          <h2>Preserving morphology.<br />Transforming stains.</h2>
+        </div>
+        <div>
+          <p>
+            We introduce a morphology-preserving virtual staining framework for
+            unpaired H&amp;E-to-PAS and H&amp;E-to-IHC translation.
+            Luminance-guided post-processing recovers fine structural boundaries
+            in PAS, while a two-step inference pipeline protects spatial
+            fidelity in IHC.
+          </p>
+          <b
+            >Giuseppe Spathis · Imen Chtourou · Xavier Descombes · Damien
+            Ambrosetti · Giorgio Toni · Paul Hannebert</b
+          ><small>Université Côte d’Azur, INRIA, CNRS · CHU Nice</small>
+        </div>
+      </section>
+      <div class="tests">
+        <section class="quiz" id="pas" data-test="pas">
+          <div class="quiz-head">
+            <div>
+              <p class="kicker">Blind test · PAS</p>
+              <h2>Real or generated?</h2>
+              <p>
+                Classify each Periodic Acid–Schiff image before revealing your
+                score.
+              </p>
+            </div>
+            <div class="counter"></div>
+          </div>
+          <div class="note">
+            Place your images in <code>images/pas/</code>. Current cards are
+            visual placeholders.
+          </div>
+          <div class="grid"></div>
+          <div class="action"></div>
+        </section>
+        <section class="quiz" id="ihc" data-test="ihc">
+          <div class="quiz-head">
+            <div>
+              <p class="kicker">Blind test · IHC</p>
+              <h2>Real or generated?</h2>
+              <p>Now test your eye on immunohistochemistry images.</p>
+            </div>
+            <div class="counter"></div>
+          </div>
+          <div class="note">
+            Place your images in <code>images/ihc/</code>. Current cards are
+            visual placeholders.
+          </div>
+          <div class="grid"></div>
+          <div class="action"></div>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <b>Morphology-Preserving Virtual Staining</b
+      ><span>Interactive research demo · 2026</span>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
