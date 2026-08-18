@@ -2,89 +2,269 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+
     <title>Morphology-Preserving Virtual Staining</title>
+
     <meta
       name="description"
-      content="PAS and IHC virtual staining blind tests"
+      content="Interactive PAS and IHC virtual staining blind tests"
     />
+
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="images.css" />
   </head>
+
   <body>
+    <!-- =====================================================
+         MORPHEME HEADER
+         ===================================================== -->
+
     <header class="morpheme-header">
-      <a href="#top"><strong>Team Morpheme</strong><span>Morphology &amp; Images</span></a>
+      <a href="#top">
+        <strong>Team Morpheme</strong>
+        <span>Morphology &amp; Images</span>
+      </a>
     </header>
-    <nav class="morpheme-nav">
-      <a href="#paper">PAPER DESCRIPTION</a><a href="#pas">PAS BLIND TEST</a><a href="#ihc">IHC BLIND TEST</a>
+
+    <!-- =====================================================
+         NAVIGATION
+         ===================================================== -->
+
+    <nav class="morpheme-nav" aria-label="Main navigation">
+      <a href="#paper">PAPER DESCRIPTION</a>
+      <a href="#pas">PAS BLIND TEST</a>
+      <a href="#ihc">IHC BLIND TEST</a>
     </nav>
+
     <main id="top">
+      <!-- ===================================================
+           HERO
+           =================================================== -->
+
       <section class="hero">
-        <p class="kicker">Interactive paper experience · WORKSHOP COMPAYL MICCAI 2026</p>
-        <h1> Morphology-Preserving <br /><em> Virtual Staining </em></h1>
-        <p>From H&amp;E to PAS and IHC using Enhanced Diffusion Models</p>
+        <p class="kicker">
+          Interactive paper experience · WORKSHOP COMPAYL MICCAI 2026
+        </p>
+
+        <h1>
+          Morphology-Preserving
+          <br />
+
+          <em>Virtual Staining</em>
+        </h1>
+
+        <p>
+          From H&amp;E to PAS and IHC using Enhanced Diffusion Models
+        </p>
+
         <div>
-          <a class="primary" href="#pas">Start with PAS</a
-          ><a class="secondary" href="#ihc">Go to IHC</a>
+          <a class="primary" href="#pas">
+            Start with PAS
+          </a>
+
+          <a class="secondary" href="#ihc">
+            Go to IHC
+          </a>
         </div>
       </section>
+
+      <!-- ===================================================
+           REPRESENTATIVE PAS AND IHC RESULTS
+           =================================================== -->
+
+      <section
+        class="results-showcase"
+        aria-labelledby="representative-results-title"
+      >
+        <div class="results-heading">
+          <p class="kicker">
+            Representative results
+          </p>
+
+          <h2 id="representative-results-title">
+            Two virtual staining branches
+          </h2>
+
+          <p>
+            Representative results generated independently by the
+            H&amp;E-to-PAS and H&amp;E-to-IHC branches.
+          </p>
+        </div>
+
+        <div class="results-grid">
+          <!-- PAS RESULT -->
+
+          <figure class="result-card">
+            <div class="result-image-wrapper">
+              <img
+                src="images/virtual-pas.jpg"
+                alt="Representative virtual PAS staining result"
+                loading="lazy"
+              />
+
+              <span class="stain-label">
+                Virtual PAS
+              </span>
+            </div>
+
+            <figcaption>
+              Representative result from the H&amp;E-to-PAS branch
+            </figcaption>
+          </figure>
+
+          <!-- IHC RESULT -->
+
+          <figure class="result-card">
+            <div class="result-image-wrapper">
+              <img
+                src="images/virtual-ihc.jpg"
+                alt="Representative virtual IHC staining result"
+                loading="lazy"
+              />
+
+              <span class="stain-label">
+                Virtual IHC
+              </span>
+            </div>
+
+            <figcaption>
+              Representative result from the H&amp;E-to-IHC branch
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ===================================================
+           PAPER DESCRIPTION
+           =================================================== -->
+
       <section class="paper" id="paper">
         <div>
-          <p class="kicker">The research</p>
-          <h2>Preserving morphology <br />Transforming stains </h2>
+          <p class="kicker">
+            The research
+          </p>
+
+          <h2>
+            Preserving morphology
+            <br />
+
+            Transforming stains
+          </h2>
         </div>
+
         <div>
           <p>
-            We introduce a morphology-preserving virtual staining framework for
-            unpaired H&amp;E-to-PAS and H&amp;E-to-IHC translation
-            Luminance-guided post-processing recovers fine structural boundaries
-            in PAS, while a two-step inference pipeline protects spatial
-            fidelity in IHC
+            We introduce a morphology-preserving virtual staining framework
+            for unpaired H&amp;E-to-PAS and H&amp;E-to-IHC translation.
+            Luminance-guided post-processing recovers fine structural
+            boundaries in PAS, while a two-step inference pipeline protects
+            spatial fidelity in IHC.
           </p>
-          <b
-            >Giuseppe Spathis · Imen Chtourou · Xavier Descombes · Damien
-            Ambrosetti · Giorgio Toni · Paul Hannetel</b
-          ><small>Université Côte d’Azur, INRIA, CNRS · CHU Nice</small>
+
+          <p class="authors">
+            Giuseppe Spathis · Imen Chtourou · Xavier Descombes · Damien
+            Ambrosetti · Giorgio Toni · Paul Hannetel
+          </p>
+
+          <small>
+            Université Côte d’Azur, INRIA, CNRS · CHU Nice
+          </small>
         </div>
       </section>
+
+      <!-- ===================================================
+           PIPELINE
+           =================================================== -->
+
       <div class="schema-container">
-        <img class="schema-img" src="images/schemaMMDMprofessional_with_images.png" alt="" />
+        <img
+          class="schema-img"
+          src="images/schemaMMDMprofessional_with_images.png"
+          alt="Overview of the proposed H&E-to-PAS and H&E-to-IHC virtual staining framework"
+          loading="lazy"
+        />
       </div>
+
+      <!-- ===================================================
+           BLIND TESTS
+           =================================================== -->
+
       <div class="tests">
+        <!-- PAS BLIND TEST -->
+
         <section class="quiz" id="pas" data-test="pas">
           <div class="quiz-head">
             <div>
-              <p class="kicker">Blind test · PAS</p>
-              <h2>Real or generated?</h2>
+              <p class="kicker">
+                Blind test · PAS
+              </p>
+
+              <h2>
+                Real or generated?
+              </h2>
+
               <p>
-                Classify each Periodic Acid–Schiff image before revealing your
-                score.
+                Classify each Periodic Acid–Schiff image before revealing
+                your score.
               </p>
             </div>
+
             <div class="counter"></div>
-          </div>                     
+          </div>
+
           <div class="grid"></div>
+
           <div class="action"></div>
         </section>
+
+        <!-- IHC BLIND TEST -->
+
         <section class="quiz" id="ihc" data-test="ihc">
           <div class="quiz-head">
             <div>
-              <p class="kicker">Blind test · IHC</p>
-              <h2>Real or generated?</h2>
-              <p>Classify each Immunohistochemistry image before revealing your
-                score.</p>
+              <p class="kicker">
+                Blind test · IHC
+              </p>
+
+              <h2>
+                Real or generated?
+              </h2>
+
+              <p>
+                Classify each immunohistochemistry image before revealing
+                your score.
+              </p>
             </div>
+
             <div class="counter"></div>
-          </div>          
+          </div>
+
           <div class="grid"></div>
+
           <div class="action"></div>
         </section>
       </div>
     </main>
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
     <footer>
-      <b>Morphology-Preserving Virtual Staining</b
-      ><span>Interactive research demo · 2026</span>
+      <b>
+        Morphology-Preserving Virtual Staining
+      </b>
+
+      <span>
+        Interactive research demo · 2026
+      </span>
     </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
