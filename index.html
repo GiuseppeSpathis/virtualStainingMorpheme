@@ -17,12 +17,52 @@
 
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="images.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "firebase/app": "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js",
+          "firebase/analytics": "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js",
+          "firebase/firestore": "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"
+        }
+      }
+    </script>
   </head>
 
   <body>
     <!-- =====================================================
          MORPHEME HEADER
          ===================================================== -->
+
+    <dialog id="user-info-modal" class="modal">
+      <form method="dialog" id="user-info-form">
+        <h2>Welcome to the Blind Test</h2>
+        <p>Before starting, please provide some basic information. This data is collected anonymously for our research.</p>
+        
+        <div class="form-group">
+          <label for="expertise">Your Expertise Level in Histopathology:</label>
+          <p style="font-size: 13px; color: var(--muted); margin-top: -4px; margin-bottom: 8px;">Please indicate your experience in reading and interpreting tissue slides.</p>
+          <select id="expertise" required>
+            <option value="" disabled selected>Select level</option>
+            <option value="beginner">Beginner</option>
+            <option value="medium">Medium</option>
+            <option value="advanced">Advanced (Pathologist)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="timesPlayed">How many times have you played this game before?</label>
+          <select id="timesPlayed" required>
+            <option value="" disabled selected>Select times</option>
+            <option value="0">0 (First time)</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3+">3 or more</option>
+          </select>
+        </div>
+
+        <button type="submit" class="primary">Start Game</button>
+      </form>
+    </dialog>
 
     <header class="morpheme-header">
       <a href="#top">
@@ -265,6 +305,6 @@
       </span>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>

@@ -15,7 +15,7 @@ body {
   color: #444;
 }
 .morpheme-header{max-width:1215px;margin:auto;min-height:185px;display:flex;align-items:center;padding:25px 0}.morpheme-header a{display:flex;flex-direction:column;text-decoration:none}.morpheme-header strong{color:var(--morpheme-red);font-family:"Arial Narrow",Arial,sans-serif;font-size:42px}.morpheme-header span{color:#666;font-family:Georgia,serif;font-size:20px;margin-top:8px}.morpheme-nav{max-width:1215px;min-height:72px;margin:auto;padding:0 20px;display:flex;align-items:center;gap:42px;background:#3b3d3f}.morpheme-nav a{color:#fff;text-decoration:none;font-family:Georgia,serif;font-size:14px;letter-spacing:.04em}
-}
+
 .hero {
   max-width:1215px;
   margin:auto;

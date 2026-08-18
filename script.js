@@ -1,3 +1,21 @@
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBLk223RzXehXl_BxgSluKXTBolipVYsxg",
+  authDomain: "virtualstainingmorpheme.firebaseapp.com",
+  projectId: "virtualstainingmorpheme",
+  storageBucket: "virtualstainingmorpheme.firebasestorage.app",
+  messagingSenderId: "20483570545",
+  appId: "1:20483570545:web:8d2c37bd7e68bd630114d0",
+  measurementId: "G-TPZLJ6DY20"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
 // Replace the filenames and answers below with your real PAS and IHC patches.
 const tests = {
   pas: [
@@ -44,6 +62,29 @@ const tests = {
     // Ajoutez toutes les images IHC ici
   ]
 };
+
+let userStats = {
+  expertise: "unknown",
+  timesPlayed: "unknown"
+};
+
+const modal = document.getElementById("user-info-modal");
+const form = document.getElementById("user-info-form");
+
+if (modal && typeof modal.showModal === 'function') {
+  modal.showModal();
+  modal.addEventListener('cancel', (e) => {
+    e.preventDefault();
+  });
+}
+
+if (form) {
+  form.addEventListener("submit", () => {
+    userStats.expertise = document.getElementById("expertise").value;
+    userStats.timesPlayed = document.getElementById("timesPlayed").value;
+  });
+}
+
 document.querySelectorAll(".quiz").forEach((section) => {
   const type = section.dataset.test,
     pool = tests[type];
@@ -86,6 +127,20 @@ document.querySelectorAll(".quiz").forEach((section) => {
     } else if (button.classList.contains("score")) {
       submitted = true;
       render();
+      
+      const score = items.filter((x, i) => choices[i] === x.answer).length;
+      try {
+        addDoc(collection(db, "game_results"), {
+          gameType: type.toUpperCase(),
+          score: score,
+          maxScore: items.length,
+          expertise: userStats.expertise,
+          timesPlayed: userStats.timesPlayed,
+          timestamp: serverTimestamp()
+        });
+      } catch (err) {
+        console.error("Firebase error: ", err);
+      }
     } else if (!submitted && button.dataset.choice) {
       choices[button.dataset.i] = button.dataset.choice;
       render();
