@@ -149,7 +149,7 @@ document.querySelectorAll(".quiz").forEach((section) => {
       .join("");
     if (submitted) {
       const score = items.filter((x, i) => choices[i] === x.answer).length;
-      action.innerHTML = `<div class="result"><span>Your ${type.toUpperCase()} score</span><strong>${score}<small>/8</small></strong><p>${score >= 7 ? "Excellent eye!" : score >= 5 ? "Strong performance." : "Weak performance."}</p><button class="reset">Play another random round</button></div>`;
+      action.innerHTML = `<div class="result"><span>Your ${type.toUpperCase()} score</span><strong>${score}<small>/8</small></strong><p>${score >= 7 ? "Excellent Pathologist!" : score >= 5 ? "Strong performance." : "Weak performance."}</p><button class="reset">Play another random round</button></div>`;
     } else
       action.innerHTML = `<button class="score" ${done < 8 ? "disabled" : ""}>Reveal my ${type.toUpperCase()} score</button>${done < 8 ? `<p>${8 - done} image${8 - done !== 1 ? "s" : ""} left to classify</p>` : ""}`;
   }
