@@ -9,6 +9,23 @@ const tests = {
     { id: 6, file: "images/pas/PAS-6.jpg", answer: "generated" },
     { id: 7, file: "images/pas/PAS-7.jpg", answer: "real" },
     { id: 8, file: "images/pas/PAS-8.jpg", answer: "generated" },
+    { id: 9, file: "images/pas/PAS-9.jpg", answer: "generated" },
+    { id: 10, file: "images/pas/PAS-10.jpg", answer: "generated" },
+    { id: 11, file: "images/pas/PAS-11.jpg", answer: "generated" },
+    { id: 12, file: "images/pas/PAS-12.jpg", answer: "real" },
+    { id: 13, file: "images/pas/PAS-13.jpg", answer: "generated" },
+    { id: 14, file: "images/pas/PAS-14.jpg", answer: "generated" },
+    { id: 15, file: "images/pas/PAS-15.jpg", answer: "generated" },
+    { id: 16, file: "images/pas/PAS-16.jpg", answer: "generated" },
+    { id: 17, file: "images/pas/PAS-17.jpg", answer: "generated" },
+    { id: 18, file: "images/pas/PAS-18.jpg", answer: "generated" },
+    { id: 13, file: "images/pas/PAS-19.jpg", answer: "real" },
+    { id: 14, file: "images/pas/PAS-20.jpg", answer: "real" },
+    { id: 13, file: "images/pas/PAS-21.jpg", answer: "real" },
+    { id: 14, file: "images/pas/PAS-22.jpg", answer: "real" },
+    { id: 13, file: "images/pas/PAS-23.jpg", answer: "real" },
+    { id: 14, file: "images/pas/PAS-24.jpg", answer: "real" },
+    
     // Ajoutez toutes les images PAS ici
   ],
 
