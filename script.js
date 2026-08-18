@@ -16,6 +16,8 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
+const GAME_DURATION_SECONDS = 30; 
+
 // Replace the filenames and answers below with your real PAS and IHC patches.
 const tests = {
   pas: [
@@ -70,9 +72,9 @@ let userStats = {
 
 const modal = document.getElementById("user-info-modal");
 const form = document.getElementById("user-info-form");
+let waitingSection = null;
 
-if (modal && typeof modal.showModal === 'function') {
-  modal.showModal();
+if (modal) {
   modal.addEventListener('cancel', (e) => {
     e.preventDefault();
   });
@@ -82,6 +84,10 @@ if (form) {
   form.addEventListener("submit", () => {
     userStats.expertise = document.getElementById("expertise").value;
     userStats.timesPlayed = document.getElementById("timesPlayed").value;
+    if (waitingSection) {
+      waitingSection.startGame();
+      waitingSection = null;
+    }
   });
 }
 
@@ -90,10 +96,46 @@ document.querySelectorAll(".quiz").forEach((section) => {
     pool = tests[type];
   let items = pool.slice(0, 8),
     choices = {},
-    submitted = false;
+    submitted = false,
+    timerInterval = null,
+    timeLeft = GAME_DURATION_SECONDS;
+    
   const grid = section.querySelector(".grid"),
     counter = section.querySelector(".counter"),
-    action = section.querySelector(".action");
+    action = section.querySelector(".action"),
+    timerDisplay = section.querySelector(".timer-display");
+
+  function updateTimerUI() {
+    if (!timerDisplay) return;
+    const m = Math.floor(timeLeft / 60).toString().padStart(2, "0");
+    const s = (timeLeft % 60).toString().padStart(2, "0");
+    timerDisplay.textContent = `${m}:${s}`;
+    if (timeLeft <= 10 && timeLeft > 0) {
+      timerDisplay.classList.add("danger");
+    } else {
+      timerDisplay.classList.remove("danger");
+    }
+  }
+
+  section.startGame = function() {
+    section.classList.remove("pending");
+    timeLeft = GAME_DURATION_SECONDS;
+    updateTimerUI();
+    
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      updateTimerUI();
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        const scoreBtn = section.querySelector(".score");
+        if (scoreBtn) {
+          scoreBtn.disabled = false;
+          scoreBtn.click();
+        }
+      }
+    }, 1000);
+  };
+
   function render() {
     const done = Object.keys(choices).length;
     counter.innerHTML = `<strong>${done}</strong><span>/ 8 classified</span><i><b style="width:${(done / 8) * 100}%"></b></i>`;
@@ -114,7 +156,19 @@ document.querySelectorAll(".quiz").forEach((section) => {
   section.addEventListener("click", (e) => {
     const button = e.target.closest("button");
     if (!button) return;
+    
+    if (button.classList.contains("start-btn")) {
+      if (userStats.expertise === "unknown") {
+        waitingSection = section;
+        if (modal && typeof modal.showModal === 'function') modal.showModal();
+      } else {
+        section.startGame();
+      }
+      return;
+    }
+    
     if (button.classList.contains("reset")) {
+      clearInterval(timerInterval);
       const previousIds = new Set(items.map((item) => item.id));
       items = [...pool].sort(() => Math.random() - 0.5).slice(0, 8);
       if (items.every((item) => previousIds.has(item.id))) {
@@ -124,7 +178,9 @@ document.querySelectorAll(".quiz").forEach((section) => {
       choices = {};
       submitted = false;
       render();
+      section.startGame();
     } else if (button.classList.contains("score")) {
+      clearInterval(timerInterval);
       submitted = true;
       render();
       
@@ -147,4 +203,10 @@ document.querySelectorAll(".quiz").forEach((section) => {
     }
   });
   render();
+  updateTimerUI();
+  const startBtn = section.querySelector(".start-btn");
+  if (startBtn) {
+    const mins = Math.floor(GAME_DURATION_SECONDS / 60);
+    startBtn.textContent = `Start Game (${mins} min)`;
+  }
 });
