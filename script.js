@@ -61,7 +61,7 @@ document.querySelectorAll(".quiz").forEach((section) => {
         const selected = choices[i],
           correct = submitted && selected === item.answer,
           wrong = submitted && selected !== item.answer;
-        return `<article class="card ${correct ? "correct" : ""} ${wrong ? "wrong" : ""}"><div class="micro ${type}-${i + 1}" data-file="${item.file}" style="background-image: url('${item.file}')"><span>${type.toUpperCase()} ${String(i + 1).padStart(2, "0")}</span></div><div class="answers"><button data-i="${i}" data-choice="real" class="${selected === "real" ? "active" : ""}">Real</button><button data-i="${i}" data-choice="generated" class="${selected === "generated" ? "active" : ""}">Generated</button></div>${submitted ? `<p class="feedback">${correct ? "Correct" : `Answer: ${item.answer === "real" ? "Real" : "Generated"}`}</p>` : ""}</article>`;
+        return `<article class="card ${correct ? "correct" : ""} ${wrong ? "wrong" : ""}"><div class="micro has-image ${type}-${i + 1}" data-file="${item.file}" style="background-image: url('${item.file}')"><span>${type.toUpperCase()} ${String(i + 1).padStart(2, "0")}</span></div><div class="answers"><button data-i="${i}" data-choice="real" class="${selected === "real" ? "active" : ""}">Real</button><button data-i="${i}" data-choice="generated" class="${selected === "generated" ? "active" : ""}">Generated</button></div>${submitted ? `<p class="feedback">${correct ? "Correct" : `Answer: ${item.answer === "real" ? "Real" : "Generated"}`}</p>` : ""}</article>`;
       })
       .join("");
     if (submitted) {
