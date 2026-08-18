@@ -13,9 +13,15 @@ const tests = {
   ],
 
   ihc: [
-    { id: 1, file: "images/ihc/ihc-1.jpg", answer: "generated" },
-    { id: 2, file: "images/ihc/ihc-2.jpg", answer: "real" },
-    { id: 3, file: "images/ihc/ihc-3.jpg", answer: "generated" }
+    { id: 1, file: "images/ihc/ccRCCfake.png", answer: "generated" },
+    { id: 2, file: "images/ihc/ccRCCtrue.png", answer: "real" },
+    { id: 1, file: "images/ihc/chRCCfake.png", answer: "generated" },
+    { id: 2, file: "images/ihc/chRCCtrue.png", answer: "real" },
+    { id: 1, file: "images/ihc/oncofake.png", answer: "generated" },
+    { id: 2, file: "images/ihc/oncotrue.png", answer: "real" },
+    { id: 1, file: "images/ihc/pRCCfake.png", answer: "generated" },
+    { id: 2, file: "images/ihc/pRCCtrue.png", answer: "real" },
+    
   
     
     // Ajoutez toutes les images IHC ici
