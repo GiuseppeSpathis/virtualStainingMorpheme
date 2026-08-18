@@ -1,14 +1,14 @@
 // Replace the filenames and answers below with your real PAS and IHC patches.
 const tests = {
   pas: [
-    { id: 1, file: "images/pas/pas-1.jpg", answer: "generated" },
-    { id: 2, file: "images/pas/pas-2.jpg", answer: "real" },
-    { id: 3, file: "images/pas/pas-3.jpg", answer: "generated" },
-    { id: 4, file: "images/pas/pas-4.jpg", answer: "real" },
-    { id: 5, file: "images/pas/pas-5.jpg", answer: "real" },
-    { id: 6, file: "images/pas/pas-6.jpg", answer: "generated" },
-    { id: 7, file: "images/pas/pas-7.jpg", answer: "real" },
-    { id: 8, file: "images/pas/pas-8.jpg", answer: "generated" },
+    { id: 1, file: "images/pas/PAS-1.jpg", answer: "generated" },
+    { id: 2, file: "images/pas/PAS-2.jpg", answer: "real" },
+    { id: 3, file: "images/pas/PAS-3.jpg", answer: "generated" },
+    { id: 4, file: "images/pas/PAS-4.jpg", answer: "real" },
+    { id: 5, file: "images/pas/PAS-5.jpg", answer: "real" },
+    { id: 6, file: "images/pas/PAS-6.jpg", answer: "generated" },
+    { id: 7, file: "images/pas/PAS-7.jpg", answer: "real" },
+    { id: 8, file: "images/pas/PAS-8.jpg", answer: "generated" },
     // Ajoutez toutes les images PAS ici
   ],
 
