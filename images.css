@@ -276,5 +276,10 @@ body {
   line-height: 1.5;
   margin-top: 12px;
 }
+.hero .kicker {
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+}
 
 
