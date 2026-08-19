@@ -277,31 +277,4 @@ body {
   margin-top: 12px;
 }
 
-/* Adaptation aux tablettes et téléphones */
-@media (max-width: 900px) {
-  .results-grid {
-    max-width: 760px;
-    grid-template-columns: repeat(2, minmax(0, 360px));
-    gap: 28px;
-  }
 
-  .result-image-wrapper {
-    height: 235px;
-  }
-}
-
-@media (max-width: 700px) {
-  .results-grid {
-    max-width: 430px;
-    grid-template-columns: 1fr;
-  }
-
-  .result-image-wrapper {
-    height: 280px;
-  }
-
-  .results-heading > p:last-child,
-  .paper > div:last-child {
-    font-size: 17px;
-  }
-}
