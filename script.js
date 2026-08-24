@@ -244,7 +244,7 @@ function renderCharts() {
           responsive: true, 
           plugins: { 
             title: { display: true, text: 'Score Distribution' },
-            legend: { onClick: null }
+            legend: { display: false }
           }, 
           scales: { 
             x: { title: { display: true, text: 'Score' } },
