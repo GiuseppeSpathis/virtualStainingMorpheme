@@ -19,13 +19,24 @@ const db = getFirestore(app);
 
 const GAME_DURATION_SECONDS = 30; 
 
-// Replace the filenames and answers below with your real PAS and IHC patches.
-const tests = {
+const tutorials = {
   pas: [
     { id: 1, file: "images/pas/PAS-1.jpg", answer: "generated" },
     { id: 2, file: "images/pas/PAS-2.jpg", answer: "real" },
     { id: 3, file: "images/pas/PAS-3.jpg", answer: "generated" },
     { id: 4, file: "images/pas/PAS-4.jpg", answer: "real" },
+  ],
+  ihc: [
+    { id: 1, file: "images/ihc/ccRCCfake_2.png", answer: "generated" },
+    { id: 2, file: "images/ihc/ccRCCtrue_1.png", answer: "real" },
+    { id: 3, file: "images/ihc/chRCCfake_1.png", answer: "generated" },
+    { id: 4, file: "images/ihc/chRCCtrue_1.png", answer: "real" },
+  ]
+};
+
+// Replace the filenames and answers below with your real PAS and IHC patches.
+const tests = {
+  pas: [
     { id: 5, file: "images/pas/PAS-5.jpg", answer: "real" },
     { id: 6, file: "images/pas/PAS-6.jpg", answer: "generated" },
     { id: 7, file: "images/pas/PAS-7.jpg", answer: "real" },
@@ -52,24 +63,20 @@ const tests = {
 
   ihc: [
   //this image is the Representative  { id: 1, file: "images/ihc/ccRCCfake_1.png", answer: "generated" },
-    { id: 1, file: "images/ihc/ccRCCfake_2.png", answer: "generated" },
     { id: 1, file: "images/ihc/ccRCCfake_3.png", answer: "generated" },
     { id: 1, file: "images/ihc/ccRCCfake_4.png", answer: "generated" },
     { id: 1, file: "images/ihc/ccRCCfake_5.png", answer: "generated" },
     { id: 1, file: "images/ihc/ccRCCfake_6.png", answer: "generated" },
-    { id: 2, file: "images/ihc/ccRCCtrue_1.png", answer: "real" },
     { id: 2, file: "images/ihc/ccRCCtrue_2.png", answer: "real" },
     { id: 2, file: "images/ihc/ccRCCtrue_3.png", answer: "real" },
     { id: 2, file: "images/ihc/ccRCCtrue_4.png", answer: "real" },
     { id: 2, file: "images/ihc/ccRCCtrue_5.png", answer: "real" },
     { id: 2, file: "images/ihc/ccRCCtrue_6.png", answer: "real" },
-    { id: 1, file: "images/ihc/chRCCfake_1.png", answer: "generated" },
     { id: 1, file: "images/ihc/chRCCfake_2.png", answer: "generated" },
     { id: 1, file: "images/ihc/chRCCfake_3.png", answer: "generated" },
     { id: 1, file: "images/ihc/chRCCfake_4.png", answer: "generated" },
     { id: 1, file: "images/ihc/chRCCfake_5.png", answer: "generated" },
     { id: 1, file: "images/ihc/chRCCfake_6.png", answer: "generated" },
-    { id: 2, file: "images/ihc/chRCCtrue_1.png", answer: "real" },
     { id: 2, file: "images/ihc/chRCCtrue_2.png", answer: "real" },
     { id: 2, file: "images/ihc/chRCCtrue_3.png", answer: "real" },
     { id: 2, file: "images/ihc/chRCCtrue_4.png", answer: "real" },
@@ -114,6 +121,16 @@ let userStats = {
 const modal = document.getElementById("user-info-modal");
 const form = document.getElementById("user-info-form");
 let waitingSection = null;
+
+const tutorialModal = document.getElementById("tutorial-modal");
+const tutorialGrid = document.getElementById("tutorial-grid");
+const tutorialTitle = document.getElementById("tutorial-title");
+
+if (tutorialModal) {
+  tutorialModal.addEventListener('cancel', (e) => {
+    e.preventDefault();
+  });
+}
 
 if (modal) {
   modal.addEventListener('cancel', (e) => {
@@ -198,6 +215,24 @@ document.querySelectorAll(".quiz").forEach((section) => {
     const button = e.target.closest("button");
     if (!button) return;
     
+    if (button.classList.contains("tutorial-btn")) {
+      tutorialTitle.textContent = `${type.toUpperCase()} Tutorial`;
+      const tutItems = tutorials[type];
+      if (tutItems) {
+        tutorialGrid.innerHTML = tutItems.map(item => `
+          <div class="tutorial-item ${item.answer}">
+            <img src="${item.file}" alt="${item.answer}" loading="lazy" />
+            <strong>${item.answer === 'real' ? 'Real' : 'Generated'}</strong>
+            <span>${item.answer === 'real' ? 'H&E Slide' : 'Virtual Stain'}</span>
+          </div>
+        `).join('');
+      }
+      if (tutorialModal && typeof tutorialModal.showModal === 'function') {
+        tutorialModal.showModal();
+      }
+      return;
+    }
+
     if (button.classList.contains("start-btn")) {
       if (userStats.expertise === "unknown") {
         waitingSection = section;

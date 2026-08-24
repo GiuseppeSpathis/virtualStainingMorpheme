@@ -64,6 +64,19 @@
       </form>
     </dialog>
 
+    <dialog id="tutorial-modal" class="modal tutorial-modal">
+      <form method="dialog" id="tutorial-form">
+        <h2 id="tutorial-title">Tutorial</h2>
+        <p id="tutorial-desc">Here are some examples of real and generated images to help you distinguish between them.</p>
+        
+        <div class="tutorial-grid" id="tutorial-grid">
+          <!-- Images will be injected here -->
+        </div>
+
+        <button type="submit" class="primary" style="margin-top: 20px;">Close Tutorial</button>
+      </form>
+    </dialog>
+
     <header class="morpheme-header">
       <a href="#top">
         <strong>Team Morpheme</strong>
@@ -261,6 +274,7 @@
           </div>
 
           <div class="quiz-overlay">
+            <button class="tutorial-btn secondary" style="margin-right: 10px;">Tutorial</button>
             <button class="start-btn primary">Start Game (1 min)</button>
           </div>
 
@@ -295,6 +309,7 @@
           </div>
 
           <div class="quiz-overlay">
+            <button class="tutorial-btn secondary" style="margin-right: 10px;">Tutorial</button>
             <button class="start-btn primary">Start Game (1 min)</button>
           </div>
 
