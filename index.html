@@ -15,8 +15,8 @@
       content="Interactive PAS and IHC virtual staining blind tests"
     />
 
-    <link rel="stylesheet" href="style.css?v=11" />
-    <link rel="stylesheet" href="images.css?v=11" />
+    <link rel="stylesheet" href="style.css?v=12" />
+    <link rel="stylesheet" href="images.css?v=12" />
     <script type="importmap">
       {
         "imports": {
@@ -313,6 +313,27 @@
           <div class="action"></div>
         </section>
       </div>
+      
+      <!-- ===================================================
+           ANALYTICS
+           =================================================== -->
+
+      <section class="analytics-section" id="analytics">
+        <div>
+          <p class="kicker">Live Data</p>
+          <h2>Global Analytics</h2>
+          <p>See how your performance compares to others and explore the distribution of scores across different expertise levels.</p>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-container">
+            <canvas id="avgScoreChart"></canvas>
+          </div>
+          <div class="chart-container">
+            <canvas id="scoreDistributionChart"></canvas>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- =====================================================
@@ -329,6 +350,7 @@
       </span>
     </footer>
 
-    <script type="module" src="script.js?v=11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="script.js?v=12"></script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getFirestore, collection, addDoc, serverTimestamp, getDocs } from "firebase/firestore";
 
 const firebaseConfig = {
   // added the sum just to avoid the GitHub bot to find the API Key
@@ -17,7 +17,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
-const GAME_DURATION_SECONDS = 30; 
+const GAME_DURATION_SECONDS = 60; 
 
 const tutorials = {
   pas: [
@@ -106,7 +106,7 @@ const tests = {
     { id: 1, file: "images/ihc/pRCCfake_4.png", answer: "generated" },
     { id: 1, file: "images/ihc/pRCCfake_5.png", answer: "generated" },
     { id: 1, file: "images/ihc/pRCCfake_6.png", answer: "generated" }
-    
+  
   
     
     // Ajoutez toutes les images IHC ici
@@ -117,6 +117,22 @@ let userStats = {
   expertise: "unknown",
   timesPlayed: "unknown"
 };
+
+let analyticsData = [];
+let avgChartInstance = null;
+let distChartInstance = null;
+
+async function fetchAnalytics() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "game_results"));
+    analyticsData = querySnapshot.docs.map(doc => doc.data());
+    renderCharts();
+  } catch (error) {
+    console.error("Error fetching analytics:", error);
+  }
+}
+
+fetchAnalytics();
 
 const modal = document.getElementById("user-info-modal");
 const form = document.getElementById("user-info-form");
@@ -156,6 +172,68 @@ function shuffleArray(array) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
+}
+
+function renderCharts() {
+  if (typeof Chart === 'undefined') {
+    // If Chart.js isn't loaded yet, try again in 500ms
+    setTimeout(renderCharts, 500);
+    return;
+  }
+
+  const expertises = ["beginner", "medium", "advanced"];
+  const avgScoresPAS = expertises.map(exp => {
+    const data = analyticsData.filter(d => d.expertise === exp && d.gameType === "PAS");
+    return data.length ? data.reduce((sum, d) => sum + d.score, 0) / data.length : 0;
+  });
+  
+  const avgScoresIHC = expertises.map(exp => {
+    const data = analyticsData.filter(d => d.expertise === exp && d.gameType === "IHC");
+    return data.length ? data.reduce((sum, d) => sum + d.score, 0) / data.length : 0;
+  });
+
+  const avgCtx = document.getElementById('avgScoreChart');
+  if (avgCtx) {
+    if (avgChartInstance) {
+      avgChartInstance.data.datasets[0].data = avgScoresPAS;
+      avgChartInstance.data.datasets[1].data = avgScoresIHC;
+      avgChartInstance.update();
+    } else {
+      avgChartInstance = new Chart(avgCtx, {
+        type: 'bar',
+        data: {
+          labels: ["Beginner", "Medium", "Advanced"],
+          datasets: [
+            { label: 'PAS Average', data: avgScoresPAS, backgroundColor: '#315aa8' },
+            { label: 'IHC Average', data: avgScoresIHC, backgroundColor: '#14845b' }
+          ]
+        },
+        options: { responsive: true, plugins: { title: { display: true, text: 'Average Score by Expertise (out of 8)' } }, scales: { y: { beginAtZero: true, max: 8 } } }
+      });
+    }
+  }
+
+  const distCtx = document.getElementById('scoreDistributionChart');
+  if (distCtx) {
+    const scoreCounts = Array(9).fill(0);
+    analyticsData.forEach(d => {
+      if (d.score >= 0 && d.score <= 8) scoreCounts[d.score]++;
+    });
+
+    if (distChartInstance) {
+      distChartInstance.data.datasets[0].data = scoreCounts;
+      distChartInstance.update();
+    } else {
+      distChartInstance = new Chart(distCtx, {
+        type: 'line',
+        data: {
+          labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
+          datasets: [{ label: 'Number of Players', data: scoreCounts, borderColor: '#c74343', backgroundColor: 'rgba(199, 67, 67, 0.2)', fill: true, tension: 0.3 }]
+        },
+        options: { responsive: true, plugins: { title: { display: true, text: 'Score Distribution' } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+      });
+    }
+  }
 }
 
 document.querySelectorAll(".quiz").forEach((section) => {
@@ -216,7 +294,17 @@ document.querySelectorAll(".quiz").forEach((section) => {
       .join("");
     if (submitted) {
       const score = items.filter((x, i) => choices[i] === x.answer).length;
-      action.innerHTML = `<div class="result"><span>Your ${type.toUpperCase()} score</span><strong>${score}<small>/8</small></strong><p>${score >= 7 ? "Excellent Pathologist!" : score >= 5 ? "Strong performance." : "Weak performance."}</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button type="button" class="tutorial-btn">Tutorial</button><button class="reset">Play another random round</button></div></div>`;
+      
+      let averageHtml = "";
+      if (userStats.expertise !== "unknown" && analyticsData.length > 0) {
+        const sameExp = analyticsData.filter(d => d.expertise === userStats.expertise && d.gameType === type.toUpperCase());
+        if (sameExp.length > 0) {
+          const avg = sameExp.reduce((sum, d) => sum + d.score, 0) / sameExp.length;
+          averageHtml = `<p style="margin-top: 10px; color: var(--muted); font-size: 14px;">Average score for ${userStats.expertise} expertise: <strong>${avg.toFixed(1)}/8</strong></p>`;
+        }
+      }
+
+      action.innerHTML = `<div class="result"><span>Your ${type.toUpperCase()} score</span><strong>${score}<small>/8</small></strong><p>${score >= 7 ? "Excellent Pathologist!" : score >= 5 ? "Strong performance." : "Weak performance."}</p>${averageHtml}<div style="display: flex; gap: 10px; margin-top: 15px;"><button type="button" class="tutorial-btn">Tutorial</button><button class="reset">Play another random round</button></div></div>`;
     } else
       action.innerHTML = `<button class="score" ${done < 8 ? "disabled" : ""}>Reveal my ${type.toUpperCase()} score</button>${done < 8 ? `<p>${8 - done} image${8 - done !== 1 ? "s" : ""} left to classify</p>` : ""}`;
   }
@@ -279,6 +367,8 @@ document.querySelectorAll(".quiz").forEach((section) => {
           expertise: userStats.expertise,
           timesPlayed: userStats.timesPlayed,
           timestamp: serverTimestamp()
+        }).then(() => {
+          fetchAnalytics();
         });
       } catch (err) {
         console.error("Firebase error: ", err);
