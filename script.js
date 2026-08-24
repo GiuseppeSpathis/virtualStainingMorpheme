@@ -228,6 +228,8 @@ document.querySelectorAll(".quiz").forEach((section) => {
       }
       if (tutorialModal && typeof tutorialModal.showModal === 'function') {
         tutorialModal.showModal();
+        tutorialModal.scrollTop = 0;
+        tutorialTitle.focus();
       }
       return;
     }
