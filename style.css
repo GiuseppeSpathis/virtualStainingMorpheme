@@ -45,13 +45,15 @@
 }
 
 .tutorial-modal {
-  max-width: 1100px;
+  max-width: 1000px;
   width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 .tutorial-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
   margin-top: 25px;
 }
 .tutorial-item {
