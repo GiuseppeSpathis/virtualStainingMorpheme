@@ -15,8 +15,8 @@
       content="Interactive PAS and IHC virtual staining blind tests"
     />
 
-    <link rel="stylesheet" href="style.css?v=6" />
-    <link rel="stylesheet" href="images.css?v=6" />
+    <link rel="stylesheet" href="style.css?v=7" />
+    <link rel="stylesheet" href="images.css?v=7" />
     <script type="importmap">
       {
         "imports": {
@@ -67,7 +67,10 @@
     <dialog id="tutorial-modal" class="modal tutorial-modal">
       <form method="dialog" id="tutorial-form">
         <h2 id="tutorial-title" tabindex="-1" style="outline: none;">Tutorial</h2>
-        <p id="tutorial-desc">Here are some examples of real and generated images to help you distinguish between them.</p>
+        <p id="tutorial-desc">
+          Here are some examples of real and generated images to help you distinguish between them.<br/><br/>
+          <strong>Tip:</strong> To understand if an image is generated (fake), check if there are unnatural artifacts in the image, if certain areas look unusually blurry, or if the nuclei are not clear.
+        </p>
         
         <div class="tutorial-grid" id="tutorial-grid">
           <!-- Images will be injected here -->
@@ -326,6 +329,6 @@
       </span>
     </footer>
 
-    <script type="module" src="script.js?v=6"></script>
+    <script type="module" src="script.js?v=7"></script>
   </body>
 </html>
