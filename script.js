@@ -223,7 +223,6 @@ document.querySelectorAll(".quiz").forEach((section) => {
           <div class="tutorial-item ${item.answer}">
             <img src="${item.file}" alt="${item.answer}" loading="lazy" />
             <strong>${item.answer === 'real' ? 'Real' : 'Generated'}</strong>
-            <span>${item.answer === 'real' ? 'H&E Slide' : 'Virtual Stain'}</span>
           </div>
         `).join('');
       }
