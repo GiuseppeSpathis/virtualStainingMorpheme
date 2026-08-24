@@ -149,10 +149,19 @@ if (form) {
   });
 }
 
+function shuffleArray(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 document.querySelectorAll(".quiz").forEach((section) => {
   const type = section.dataset.test,
     pool = tests[type];
-  let items = [...pool].sort(() => Math.random() - 0.5).slice(0, 8),
+  let items = shuffleArray(pool).slice(0, 8),
     choices = {},
     submitted = false,
     timerInterval = null,
@@ -247,7 +256,7 @@ document.querySelectorAll(".quiz").forEach((section) => {
     if (button.classList.contains("reset")) {
       clearInterval(timerInterval);
       const previousIds = new Set(items.map((item) => item.id));
-      items = [...pool].sort(() => Math.random() - 0.5).slice(0, 8);
+      items = shuffleArray(pool).slice(0, 8);
       if (items.every((item) => previousIds.has(item.id))) {
         const unseen = pool.find((item) => !previousIds.has(item.id));
         if (unseen) items[0] = unseen;
