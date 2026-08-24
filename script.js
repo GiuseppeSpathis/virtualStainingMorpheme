@@ -114,8 +114,8 @@ const tests = {
 };
 
 let userStats = {
-  expertise: localStorage.getItem("morpheme_expertise") || "unknown",
-  timesPlayed: localStorage.getItem("morpheme_timesPlayed") || "unknown"
+  expertise: "unknown",
+  timesPlayed: "unknown"
 };
 
 const modal = document.getElementById("user-info-modal");
@@ -142,10 +142,6 @@ if (form) {
   form.addEventListener("submit", () => {
     userStats.expertise = document.getElementById("expertise").value;
     userStats.timesPlayed = document.getElementById("timesPlayed").value;
-    
-    localStorage.setItem("morpheme_expertise", userStats.expertise);
-    localStorage.setItem("morpheme_timesPlayed", userStats.timesPlayed);
-    
     if (waitingSection) {
       waitingSection.startGame();
       waitingSection = null;
@@ -239,7 +235,7 @@ document.querySelectorAll(".quiz").forEach((section) => {
     }
 
     if (button.classList.contains("start-btn")) {
-      if (userStats.expertise === "unknown" || userStats.timesPlayed === "unknown") {
+      if (userStats.expertise === "unknown") {
         waitingSection = section;
         if (modal && typeof modal.showModal === 'function') modal.showModal();
       } else {
