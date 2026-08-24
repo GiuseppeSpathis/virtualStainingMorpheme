@@ -208,7 +208,17 @@ function renderCharts() {
             { label: 'IHC Average', data: avgScoresIHC, backgroundColor: '#14845b' }
           ]
         },
-        options: { responsive: true, plugins: { title: { display: true, text: 'Average Score by Expertise (out of 8)' } }, scales: { y: { beginAtZero: true, max: 8 } } }
+        options: { 
+          responsive: true, 
+          plugins: { 
+            title: { display: true, text: 'Average Score by Expertise (out of 8)' },
+            legend: { onClick: null }
+          }, 
+          scales: { 
+            x: { title: { display: true, text: 'Expertise Level' } },
+            y: { beginAtZero: true, max: 8, title: { display: true, text: 'Average Score' } } 
+          } 
+        }
       });
     }
   }
@@ -230,7 +240,17 @@ function renderCharts() {
           labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
           datasets: [{ label: 'Number of Players', data: scoreCounts, borderColor: '#c74343', backgroundColor: 'rgba(199, 67, 67, 0.2)', fill: true, tension: 0.3 }]
         },
-        options: { responsive: true, plugins: { title: { display: true, text: 'Score Distribution' } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+        options: { 
+          responsive: true, 
+          plugins: { 
+            title: { display: true, text: 'Score Distribution' },
+            legend: { onClick: null }
+          }, 
+          scales: { 
+            x: { title: { display: true, text: 'Score' } },
+            y: { beginAtZero: true, ticks: { stepSize: 1 }, title: { display: true, text: 'Number of Players' } } 
+          } 
+        }
       });
     }
   }
@@ -300,7 +320,7 @@ document.querySelectorAll(".quiz").forEach((section) => {
         const sameExp = analyticsData.filter(d => d.expertise === userStats.expertise && d.gameType === type.toUpperCase());
         if (sameExp.length > 0) {
           const avg = sameExp.reduce((sum, d) => sum + d.score, 0) / sameExp.length;
-          averageHtml = `<p style="margin-top: 10px; color: var(--muted); font-size: 14px;">Average score for ${userStats.expertise} expertise: <strong>${avg.toFixed(1)}/8</strong></p>`;
+          averageHtml = `<p style="margin-top: 10px; color: var(--muted); font-size: 14px;">Average score for ${userStats.expertise} expertise: <b style="font-size: 16px; color: var(--red);">${avg.toFixed(1)}/8</b></p>`;
         }
       }
 
@@ -358,6 +378,10 @@ document.querySelectorAll(".quiz").forEach((section) => {
       submitted = true;
       render();
       
+      setTimeout(() => {
+        if (action) action.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 50);
+
       const score = items.filter((x, i) => choices[i] === x.answer).length;
       try {
         addDoc(collection(db, "game_results"), {
