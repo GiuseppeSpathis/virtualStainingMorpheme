@@ -152,7 +152,7 @@ if (form) {
 document.querySelectorAll(".quiz").forEach((section) => {
   const type = section.dataset.test,
     pool = tests[type];
-  let items = pool.slice(0, 8),
+  let items = [...pool].sort(() => Math.random() - 0.5).slice(0, 8),
     choices = {},
     submitted = false,
     timerInterval = null,
