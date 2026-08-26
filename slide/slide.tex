@@ -1,0 +1,57 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+
+% Define custom colors matching the web interface and INRIA branding
+\definecolor{inriared}{RGB}{230, 51, 18}
+\definecolor{darkgray}{RGB}{50, 50, 50}
+\definecolor{lightgray}{RGB}{245, 245, 245}
+
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{fg=darkgray}
+
+\begin{document}
+	
+	\begin{frame}[plain]
+		\begin{tikzpicture}[remember picture,overlay]
+			% Top Header bar
+			\fill[inriared] (current page.north west) rectangle ([yshift=-1.2cm]current page.north east);
+			\node[anchor=west, white, font=\Large\bfseries] at ([xshift=0.5cm, yshift=-0.6cm]current page.north west) {Team Morpheme | INRIA Sophia Antipolis};
+		\end{tikzpicture}
+		
+		\vspace{0.8cm}
+		
+		% Full width title
+		\begin{center}
+			{\Huge \textbf{Experience the Power of \textcolor{inriared}{Generative AI}}}
+		\end{center}
+		
+		\vspace{0.3cm}
+		
+		\begin{columns}[T]
+			% Left Column: Details and Call to action
+			\begin{column}{0.4\textwidth}
+				\vspace{0.5cm}
+				{\Large \textbf{Try a blind test game!}} \\[0.5cm]
+				
+				{\large Can you spot the difference between real tissue and AI-generated stains?} \\[1cm]
+				
+				
+			\end{column}
+			
+			% Right Column: QR Code and Teaser
+			\begin{column}{0.6\textwidth}
+					\vspace{-0.5cm}
+				\begin{center}
+					\includegraphics[width=0.45\textwidth]{qrCode.png} \\[0.5cm]
+					\vspace{-0.3cm}
+					\textbf{scan to play}
+					
+				
+				\end{center}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+\end{document}
